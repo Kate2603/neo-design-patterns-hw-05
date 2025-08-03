@@ -1,0 +1,1 @@
+Nested text file for deeper structure test.
