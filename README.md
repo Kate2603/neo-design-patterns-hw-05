@@ -54,52 +54,37 @@
 
 ### Структура файлів
 
-```
-├── DirectoryReport.ts    # Інтерфейс звіту
-├── DirectoryAnalyzer.ts  # Аналіз директорій
-├── ReportAdapter.ts      # Інтерфейс адаптера
-├── JsonReportAdapter.ts  # Адаптер для JSON
-├── XmlReportAdapter.ts   # Адаптер для XML
-├── CsvReportAdapter.ts   # Адаптер для CSV
-├── AnalyzerFacade.ts     # Низькорівневий фасад
-├── ReportManager.ts      # Високорівневий фасад
-└── main.ts              # Точка входу
-```
+├── DirectoryReport.ts # Інтерфейс звіту
+├── DirectoryAnalyzer.ts # Аналіз директорій
+├── ReportAdapter.ts # Інтерфейс адаптера
+├── JsonReportAdapter.ts # Адаптер для JSON
+├── XmlReportAdapter.ts # Адаптер для XML
+├── CsvReportAdapter.ts # Адаптер для CSV
+├── AnalyzerFacade.ts # Низькорівневий фасад
+├── ReportManager.ts # Високорівневий фасад
+└── main.ts # Точка входу
 
 ## Встановлення та запуск
 
 1. Встановіть залежності:
 
-```bash
 npm install
-```
 
-2. Запустіть аналіз:
+2. Запуск:
 
-```bash
-# Аналіз поточної директорії з виводом у JSON (за замовчуванням)
-npm start
-
-# Аналіз вказаної директорії
-npm start ./path/to/directory
-
-# Аналіз з вказаним форматом (json, xml, csv)
-npm start ./path/to/directory json
-npm start ./path/to/directory xml
-npm start ./path/to/directory csv
-```
+npx ts-node src/main.ts ./test_dir json
+npx ts-node src/main.ts ./test_dir csv
+npx ts-node src/main.ts ./test_dir xml
 
 ## Результати
 
 Звіти зберігаються в директорії `reports` з іменами виду:
 
-- `report-2024-02-20T12-34-56-789Z.json`
-- `report-2024-02-20T12-34-56-789Z.xml`
-- `report-2024-02-20T12-34-56-789Z.csv`
-
-Кожен звіт містить:
-
-- Кількість файлів
-- Кількість директорій
-- Загальний розмір файлів
-- Статистику по розширеннях файлів
+- `report-2025-08-03T08-38-29-500Z.json`
+  ![alt text](img/01.jpg)
+- `report-2025-08-03T08-43-49-952Z.xml`
+  ![alt text](img/03.jpg)
+- `report-2025-08-03T08-43-47-605Z.csv`
+  ![alt text](img/02.jpg)
+- `report-2025-08-03T08-44-01-709Z.json` з новою часовою міткою
+  ![alt text](img/04.jpg)

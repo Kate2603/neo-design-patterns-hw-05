@@ -8,9 +8,12 @@ import * as path from "path";
 
 export class ReportManager {
   private adapter: ReportAdapter;
+  private format: string;
 
   constructor(format: string) {
-    switch (format.toLowerCase()) {
+    this.format = format.toLowerCase();
+
+    switch (this.format) {
       case "json":
         this.adapter = new JsonReportAdapter();
         break;
@@ -21,30 +24,37 @@ export class ReportManager {
         this.adapter = new XmlReportAdapter();
         break;
       default:
-        throw new Error(`Unsupported format: ${format}`);
+        throw new Error(
+          `Unsupported format: ${format}. Use json, csv, or xml.`
+        );
     }
   }
 
-  generateReport(dirPath: string) {
+  generateReport(dirPath: string): void {
     try {
       const facade = new AnalyzerFacade(this.adapter);
       const report = facade.generateReport(dirPath);
 
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-      const format = this.adapter.constructor.name
-        .replace("ReportAdapter", "")
-        .toLowerCase();
       const reportDir = path.join(__dirname, "reports");
-      const filePath = path.join(reportDir, `report-${timestamp}.${format}`);
 
       if (!fs.existsSync(reportDir)) {
         fs.mkdirSync(reportDir);
       }
 
+      const filePath = path.join(
+        reportDir,
+        `report-${timestamp}.${this.format}`
+      );
       fs.writeFileSync(filePath, report);
-      console.log(`Report generated successfully: ${filePath}`);
+
+      console.log(`✅ Report generated successfully: ${filePath}`);
     } catch (err: any) {
-      console.error(`Error generating report: ${err.message}`);
+      console.error(
+        "\x1b[31m%s\x1b[0m",
+        `❌ Error generating report: ${err.message}`
+      );
+      // process.exit(1); // можна додати за бажанням
     }
   }
 }
